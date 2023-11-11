@@ -1,0 +1,11 @@
+{
+    "editor.fontSize": 15,
+    "files.autoSave": "onFocusChange",
+    "editor.tabSize": 2,
+    "editor.wordWrap": "wordWrapColumn",
+    "files.exclude": {
+        ".env*": true,
+        "node_modules": true
+    },
+    "explorer.excludeGitIgnore": true
+}

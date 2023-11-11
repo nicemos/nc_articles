@@ -1,0 +1,24 @@
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "https://articles-6py6.onrender.com/api",
+});
+
+// Get articles
+export const getArticles = async () => {
+  try {
+    const { data } = await api.get("/articles");
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getArticleById = async (article_id) => {
+  try {
+    const { data } = await api.get(`/articles/${article_id}`);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
