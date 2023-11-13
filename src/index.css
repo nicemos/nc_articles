@@ -1,13 +1,39 @@
+html{
+  overflow: hidden;
+}
+
+/* Scroll bar manipulation*/
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #846C5B; 
+  border-radius: 10px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #CEA07E; 
+}
+
 * {
+  box-sizing: border-box;
   margin: 0px;
   padding: 0px;
 }
 
-body,
-#root {
+.primaryBody{
+  overflow-x: hidden;
+  overflow-y: scroll;
   margin: auto;
-  padding-block: 0px;
-  width: 80vw;
+  width: 60vw;
+  height: 100vh;
   justify-content: center;
   text-align: center;
   border: 1px solid #443742 /*#c31533*/;
@@ -16,16 +42,16 @@ body,
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  font-size: 2rem;
+  font-size: 1.75rem;
   --unit: 1rem;
-  --white: whitesmoke;
+  --white: white;
 }
 
 /* Header */
 .header {
-  width: 100%;
+  width: 60vw;
   height: calc(var(--unit) * 4.5);
-  background-color: #443742; /*#c31533*/
+  background-color: #443742;
 }
 .nav {
   display: flex;
@@ -76,11 +102,14 @@ body,
   color: var(--white);
   padding: var(--unit);
 }
-.main, .outlet {
+.main {
   width: 100%;
   background-color: var(--white);
 }
-.grid {
+li {
+  list-style: none;
+}
+.homeGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--unit);
@@ -88,8 +117,8 @@ body,
   margin: auto;
 }
 
-.card {
-  width: 90%;
+.homeCard, .sideListCard {
+  width: 100%;
   height: calc(var(--unit) * 28);
   font-size: calc(var(--unit) * 1.5);
   background-color: var(--white);
@@ -97,8 +126,6 @@ body,
   padding: var(--unit);
   border: 0.5px solid #443742;
   border-radius: var(--unit);
-  -webkit-box-shadow: 5px 8px 15px -4px #443742;
-  box-shadow: 5px 8px 15px -4px #443742;
 }
 
 .card-title {
@@ -109,10 +136,16 @@ body,
 .cardImage {
   width: 100%;
   height: 35%;
+  margin-bottom: var(--unit);
+
 }
 .cardMeta {
   text-align: left;
   font-size: calc(var(--unit) * 1.1);
+}
+
+.homeCard:hover, .sideListCard:hover{
+  outline: 1px solid #443742;
 }
 
 /* Single article styles */
@@ -121,7 +154,6 @@ body,
   grid-template-columns: auto;
   padding: calc(var(--unit) * 2);
   margin: 0px;
-
 }
 .singleCard {
   min-height: 70vh;
@@ -132,7 +164,8 @@ body,
   border: none;
 }
 .singleCard .cardImage{
-  width: 25%;
+  width: 100%;
+  height: 413px;
   float: left;
   padding-right: var(--unit);
   margin-top: calc(var(--unit) * 0.6);
@@ -151,9 +184,93 @@ h5{
 }
 .singleCard .body{
   text-align: left;
-
+  font-size: calc(var(--unit) * 1.2);
+  line-height: 2;
 }
 .singleCard .dateTime{
   text-align: right;
 }
 
+.sideList{
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 20vw;
+  min-height: 100vh;
+  width: 20vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.sideListCard {
+  width: 90%;
+  margin-block: var(--unit);
+  height: auto;
+  border-radius: 0px;
+}
+
+/* Filters */
+.filters{
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 20vw;
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  color: #000;
+  text-align: left;
+  background-color: #FFF;
+  padding: var(--unit);
+  font-size: x-large;
+}
+.border {
+  display: block;
+  width: 100%;
+  border: 0.5px solid #443742;
+  padding: var(--unit);
+}
+.filters .filterInput{
+  margin: var(--unit);
+  margin-bottom: auto;
+  vertical-align: bottom;
+  width: 25px;
+  height: 25px;
+  accent-color: #CEA07E;
+}
+.filters input[type="submit"]{
+  width: calc(var(--unit) * 10);
+  font-size: calc(var(--unit) * 1.5);
+  font-weight: bold;
+  padding: calc(var(--unit) * 0.6);
+  border: none;
+  color: #FFF;
+  background-color: #443742;
+}
+.filters input[type="submit"]:hover{
+  transform: scaleX(1.1);
+  cursor: pointer;
+}
+.topicsHeading{
+  font-weight: 700;
+}
+.filters p{
+  text-align: center;
+  text-decoration: underline;
+  font-weight: bold;
+  padding-block: var(--unit);
+}
+.authorDropdownWrapper{
+  text-align: center;
+  display: none;
+}
+.authorDropdown{
+  font-size: calc(var(--unit) *1.5);
+  padding: calc(var(--unit) * 0.3);
+  margin-top: calc(var(--unit) * 0.7);
+}
+.authorDropdownDisplay{
+  display: block;
+}

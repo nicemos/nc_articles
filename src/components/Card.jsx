@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const Card = ({ article, cardClass }) => {
   const dateString = article.created_at;
   const date = dateString.split("T")[0].split("-").reverse().join("/");
-  const time = dateString.slice(
-    dateString.indexOf("T") + 1,
-    dateString.lastIndexOf(":")
-  );
+  // const time = dateString.slice(
+  //   dateString.indexOf("T") + 1,
+  //   dateString.lastIndexOf(":")
+  // );
   const [articleVoteCount] = useState(article.votes);
   const Common = () => {
     return (
@@ -17,12 +17,12 @@ const Card = ({ article, cardClass }) => {
         </span>
         <span className="cardMeta">
           <span>
-            <p className="topic">Topic: {article.topic}</p>
+            <p className="topicname">Topic: {article.topic}</p>
             <p className="author">Author: {article.author}</p>
           </span>
           <span className="dateTime">
             <p>Created At: {date}</p>
-            <p> Time: {time} </p>
+            {/* <p> Time: {time} </p> */}
           </span>
         </span>
         <img
