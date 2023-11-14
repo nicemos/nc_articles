@@ -5,10 +5,16 @@ const api = axios.create({
 });
 
 // Get articles
-export const getArticles = async () => {
+export const getArticles = async (formData) => {
   try {
-    const { data } = await api.get("/articles");
-    return data;
+    if (formData) {
+      console.log('{ ...formData }: ', { ...formData });
+      const { data } = await api.get("/articles", { params: { ...formData } });
+      return data;
+    } else {
+      const { data } = await api.get("/articles");
+      return data;
+    }
   } catch (error) {
     return error;
   }

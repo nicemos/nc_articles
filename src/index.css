@@ -5,7 +5,7 @@ html{
 /* Scroll bar manipulation*/
 /* width */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 3px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
@@ -14,12 +14,14 @@ html{
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #846C5B; 
+  /* background: #846C5B;  */
+  background: #FFF; 
   border-radius: 10px;
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #CEA07E; 
+  /* background: #CEA07E;  */
+  background: #eee; 
 }
 
 * {
@@ -218,6 +220,8 @@ h5{
   right: 0;
   max-width: 20vw;
   width: 20vw;
+  height: 100vh;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
   color: #000;

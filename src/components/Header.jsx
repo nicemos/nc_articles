@@ -11,13 +11,10 @@ const Header = () => {
               alt="Northcoders Logo"
               className="logoImg"
             />
-            Articles
+            HOME
           </span>
         </Link>
         <span className="topics">
-          <Link to={"/"} className="topic">
-            <span>All</span>
-          </Link>
           <span>Football</span>
           <span>Cooking</span>
           <span>Coding</span>

@@ -1,25 +1,11 @@
-import { useEffect, useState } from "react";
-import { getArticles } from "../data/api";
+import { useContext} from "react";
 import Card from "./Card";
 import ErrorPage from "./ErrorPage";
+import { ArticlesContext } from "./ArticlesContext";
 
 const Home = ({gridClass, sideListCard}) => {
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  useEffect(() => {
-    getArticles()
-      .then(({ articles }) => {
-        setArticles(articles);
-        setLoading(false);
-      })
-      .catch((e) => {
-        setError(e);
-      });
-  }, [loading]);
-
-  if (loading) return <h2> Loading... Please wait</h2>;
-
+  const {articles, error} = useContext(ArticlesContext);
+  
   return (
     <>
       <main className="main">
@@ -37,6 +23,7 @@ const Home = ({gridClass, sideListCard}) => {
       </main>
     </>
   );
+
 };
 
 export default Home;
