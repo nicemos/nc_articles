@@ -4,25 +4,32 @@ import { ArticlesContext } from "./ArticlesContext";
 
 const Filters = () => {
   const authRadioListRef = useRef();
+  const { setArticles } = useContext(ArticlesContext);
+  const [, setErrMsg] = useState("");
+
   const handleAuthorRadioFocus = () => {
     authRadioListRef.current.classList.add("authorDropdownDisplay");
   };
 
-  const {setArticles} = useContext(ArticlesContext);
-  const [, setErrMsg] = useState("");
-  const [, setSubmitted] = useState(false);
-
+  const clearClick = (name) => {
+    const ele = document.getElementsByName(name);
+    for (let i = 0; i < ele.length; i++) {
+      ele[i].checked = false;
+      if(name === 'author'){
+        const authorElem = document.getElementById('authors')
+        authorElem[0].selected = 'selected';
+        // console.log('authorElem.defaultValue: ', authorElem.defaultValue);
+        // authorElem.value = authorElem.defaultValue;
+      }
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrMsg(false);
-    setSubmitted(true);
     let formData = Object.fromEntries(new FormData(e.target));
     try {
-      const {articles} = await getArticles(formData);
-      console.log('filterd articles: ', articles);
+      const { articles } = await getArticles(formData);
       setArticles(articles);
-      // setErrMsg(data);
-      setSubmitted(false);
     } catch (e) {
       setErrMsg(() => "Unknown Error. Please try again.");
       return e;
@@ -78,22 +85,30 @@ const Filters = () => {
           />
           <label htmlFor="cooking">Cooking</label>
           <br />
+          <br />
+          <input
+            type="button"
+            value="Reset"
+            className="clearBtn"
+            onClick={() => clearClick("topic")}
+          />
         </span>
-        <span className="border">
-          <span className="topicsHeading">Author</span>
+
+        <span className="border" id="authorFilter">
+          <span className="topicsHeading">Articles By</span>
           <br />
           <input
             type="radio"
             id="author"
             className="filterInput"
-            name="topic"
+            name="author"
             value="author"
             onClick={handleAuthorRadioFocus}
           />
           <label htmlFor="author">Author</label>
           <br />
           <div className="authorDropdownWrapper" ref={authRadioListRef}>
-            <select name="author" id="authors" className="authorDropdown">
+            <select name="authors" id="authors" className="authorDropdown">
               {/* fill optioins from database */}
               <option value="any">Any</option>
               <option value="tickle22">trickle22</option>
@@ -102,9 +117,70 @@ const Filters = () => {
               <option value="audi">Audi</option>
             </select>
           </div>
+          <br />
+          <input
+            type="button"
+            value="Reset"
+            className="clearBtn"
+            onClick={() => clearClick("author")}
+          />
         </span>
         <span className="border">
-          <span className="topicsHeading">Order By</span>
+          <span className="topicsHeading">Sort By</span>
+          <br />
+          <input
+            type="radio"
+            id="title"
+            className="filterInput"
+            name="sort_by"
+            value="title"
+          />
+          <label htmlFor="title">Title</label>
+          <br />
+          
+          <input
+            type="radio"
+            id="voteCount"
+            className="filterInput"
+            name="sort_by"
+            value="votes"
+          />
+          <label htmlFor="voteCount">Vote Count</label>
+          <br />
+          <input
+            type="button"
+            value="Reset"
+            className="clearBtn"
+            onClick={() => clearClick("topic")}
+          />
+          <br />
+          <input
+            type="button"
+            value="Reset"
+            className="clearBtn"
+            onClick={() => clearClick("sort_by")}
+          />
+        </span>
+        <span className="border">
+          <span className="topicsHeading">Order</span>
+          <br />
+          <input
+            type="radio"
+            id="oldestFirst"
+            className="filterInput"
+            name="order"
+            value="ASC"
+          />
+          <label htmlFor="oldestFirst">Ascending</label>
+          <br />
+          <input
+            type="radio"
+            id="newestFirst"
+            className="filterInput"
+            name="order"
+            value="DESC"
+          />
+          <label htmlFor="newestFirst">Descending</label>
           <br />
           <input
             type="radio"
@@ -124,18 +200,18 @@ const Filters = () => {
           />
           <label htmlFor="oldestFirst">Oldest first</label>
           <br />
-          <input
-            type="radio"
-            id="voteCount"
-            className="filterInput"
-            name="order"
-            value="DESC"
-          />
-          <label htmlFor="voteCount">Vote Count</label>
           <br />
+          <input
+            type="button"
+            value="Reset"
+            className="clearBtn"
+            onClick={() => clearClick("order")}
+          />
         </span>
+        
         <p>
           <input type="submit" />
+          <input type="reset" value="Reset All" />
         </p>
       </form>
     </aside>

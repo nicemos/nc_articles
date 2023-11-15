@@ -8,7 +8,6 @@ const api = axios.create({
 export const getArticles = async (formData) => {
   try {
     if (formData) {
-      console.log('{ ...formData }: ', { ...formData });
       const { data } = await api.get("/articles", { params: { ...formData } });
       return data;
     } else {

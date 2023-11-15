@@ -4,10 +4,18 @@ import { Link } from "react-router-dom";
 const Card = ({ article, cardClass }) => {
   const dateString = article.created_at;
   const date = dateString.split("T")[0].split("-").reverse().join("/");
+  // If Article creation time is needed.
   // const time = dateString.slice(
   //   dateString.indexOf("T") + 1,
   //   dateString.lastIndexOf(":")
   // );
+
+  // Format the body element when single card is clicked
+  if (cardClass === "singleCard" || cardClass === "sideListCard") {
+    document.body.classList.add("homeAdj");
+  } else {
+    document.body.classList.remove("homeAdj");
+  }
   const [articleVoteCount] = useState(article.votes);
   const Common = () => {
     return (
